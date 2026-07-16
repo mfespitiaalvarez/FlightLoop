@@ -8,8 +8,8 @@
 // integrator.h so derivative producers do not depend on the time-stepping
 // interface.
 
-#ifndef FLIGHTLOOP_INTEGRATOR_RHS_H_
-#define FLIGHTLOOP_INTEGRATOR_RHS_H_
+#ifndef FLIGHTLOOP_ODE_RHS_H_
+#define FLIGHTLOOP_ODE_RHS_H_
 
 #include <Eigen/Core>
 #include <functional>
@@ -36,4 +36,4 @@ using RhsFunction = std::function<RhsStatus(
 
 }  // namespace flightloop
 
-#endif  // FLIGHTLOOP_INTEGRATOR_RHS_H_
+#endif  // FLIGHTLOOP_ODE_RHS_H_

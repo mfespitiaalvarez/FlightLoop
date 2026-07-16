@@ -15,7 +15,7 @@
 
 #include <Eigen/Core>
 
-#include "flightloop/integrator/rhs.h"
+#include "flightloop/ode/rhs.h"
 
 namespace flightloop {
 
@@ -30,11 +30,6 @@ namespace flightloop {
 // held constant across the step (sample-and-hold).
 class Integrator {
  public:
-  // Convenience re-exports of the RHS contract, whose definitions live in
-  // rhs.h, so integrator call sites can keep spelling Integrator::RhsStatus.
-  using RhsStatus = ::flightloop::RhsStatus;
-  using RhsFunction = ::flightloop::RhsFunction;
-
   // Result of the full outer step, where succeeding
   // advances x by dt and failing leaves x unspecified.
   // The caller is responsible for restoring x.

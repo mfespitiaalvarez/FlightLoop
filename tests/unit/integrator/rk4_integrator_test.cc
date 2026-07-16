@@ -10,6 +10,8 @@
 #include <Eigen/Core>
 #include <gtest/gtest.h>
 
+#include "flightloop/ode/rhs.h"
+
 namespace flightloop {
 namespace {
 
@@ -29,7 +31,7 @@ TEST(Rk4IntegratorTest, MatchesExactExponentialDecaySolution) {
   constexpr double kDt = kFinalTime / kNumSteps;
 
   Rk4Integrator integrator(1);
-  const Integrator::RhsFunction rhs =
+  const RhsFunction rhs =
       [](double /*t*/, const Eigen::VectorXd& x, Eigen::VectorXd& x_dot) {
         x_dot = -x;
         return RhsStatus::kOk;

@@ -12,6 +12,7 @@
 #include <Eigen/Core>
 
 #include "flightloop/integrator/integrator.h"
+#include "flightloop/ode/rhs.h"
 
 namespace flightloop {
 
