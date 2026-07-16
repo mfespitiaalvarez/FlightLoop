@@ -14,7 +14,8 @@
 #define FLIGHTLOOP_INTEGRATOR_INTEGRATOR_H_
 
 #include <Eigen/Core>
-#include <functional>
+
+#include "flightloop/integrator/rhs.h"
 
 namespace flightloop {
 
@@ -29,16 +30,10 @@ namespace flightloop {
 // held constant across the step (sample-and-hold).
 class Integrator {
  public:
-  // Result of one right-hand-side evaluation. Mirrors the SUNDIALS
-  // CVRhsFn convention (0, ok, >0 recoverable, <0 fatal) so a
-  // wrapper can forward it directly
-  enum class [[nodiscard(
-      "A dropped kFatalError will be "
-      "silently integrated over")]] RhsStatus {
-    kOk,
-    kRecoverableError,
-    kFatalError,
-  };
+  // Convenience re-exports of the RHS contract, whose definitions live in
+  // rhs.h, so integrator call sites can keep spelling Integrator::RhsStatus.
+  using RhsStatus = ::flightloop::RhsStatus;
+  using RhsFunction = ::flightloop::RhsFunction;
 
   // Result of the full outer step, where succeeding
   // advances x by dt and failing leaves x unspecified.
@@ -49,13 +44,6 @@ class Integrator {
     kOk,
     kFailed,
   };
-
-  // Right-hand side f of the ODE x_dot = f(t, x). Writes the derivative
-  // into x_dot, which the caller preallocates to x.size(). Must be
-  // side-effect-free: it is evaluated at off-trajectory stage points
-  // that are thrown away
-  using RhsFunction = std::function<RhsStatus(
-      double t, const Eigen::VectorXd& x, Eigen::VectorXd& x_dot)>;
 
   virtual StepStatus Step(double t, double dt, const RhsFunction& f,
                           Eigen::VectorXd& x) = 0;

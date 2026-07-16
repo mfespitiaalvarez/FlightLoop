@@ -6,8 +6,8 @@
 // https://lpsa.swarthmore.edu/NumInt/NumIntFourth.html if you are more
 // interested in reading.
 
-#ifndef FLIGHTLOOP_INTEGRATOR_RK4_H_
-#define FLIGHTLOOP_INTEGRATOR_RK4_H_
+#ifndef FLIGHTLOOP_INTEGRATOR_RK4_INTEGRATOR_H_
+#define FLIGHTLOOP_INTEGRATOR_RK4_INTEGRATOR_H_
 
 #include <Eigen/Core>
 
@@ -33,4 +33,4 @@ class Rk4Integrator final : public Integrator {
 
 }  // namespace flightloop
 
-#endif  // FLIGHTLOOP_INTEGRATOR_RK4_H_
+#endif  // FLIGHTLOOP_INTEGRATOR_RK4_INTEGRATOR_H_
