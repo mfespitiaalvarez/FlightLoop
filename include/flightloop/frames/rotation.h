@@ -1,5 +1,8 @@
 // Copyright (c) 2026 mfespitiaalvarez
+//
 // SPDX-License-Identifier: MIT
+
+// Rotation conversions and definitions specific for aerospace applications.
 
 #ifndef FLIGHTLOOP_FRAMES_ROTATION_H_
 #define FLIGHTLOOP_FRAMES_ROTATION_H_
