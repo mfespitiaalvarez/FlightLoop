@@ -4,11 +4,11 @@
 
 #include "flightloop/integrator/rk4_integrator.h"
 
-#include <cmath>
-#include <stdexcept>
+#include <gtest/gtest.h>
 
 #include <Eigen/Core>
-#include <gtest/gtest.h>
+#include <cmath>
+#include <stdexcept>
 
 #include "flightloop/ode/rhs.h"
 
@@ -31,11 +31,11 @@ TEST(Rk4IntegratorTest, MatchesExactExponentialDecaySolution) {
   constexpr double kDt = kFinalTime / kNumSteps;
 
   Rk4Integrator integrator(1);
-  const RhsFunction rhs =
-      [](double /*t*/, const Eigen::VectorXd& x, Eigen::VectorXd& x_dot) {
-        x_dot = -x;
-        return RhsStatus::kOk;
-      };
+  const RhsFunction rhs = [](double /*t*/, const Eigen::VectorXd& x,
+                             Eigen::VectorXd& x_dot) {
+    x_dot = -x;
+    return RhsStatus::kOk;
+  };
 
   Eigen::VectorXd x(1);
   x << 1.0;
@@ -59,11 +59,6 @@ TEST(Rk4IntegratorTest, MatchesExactExponentialDecaySolution) {
 // components, which the scalar decay test cannot see.
 TEST(Rk4IntegratorTest, MatchesExactHarmonicOscillatorSolution) {
   GTEST_SKIP() << "Not implemented yet";
-  // 1. Construct Rk4Integrator(2) and an RhsFunction for the system above.
-  // 2. Integrate from t = 0 to a final time over fixed steps, ASSERT-ing
-  //    kOk on every step.
-  // 3. EXPECT_NEAR each state component against the exact solution, with a
-  //    tolerance justified the same way as the decay test's.
 }
 
 }  // namespace
