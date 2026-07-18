@@ -5,6 +5,7 @@
 #include "flightloop/integrator/rk4_integrator.h"
 
 #include <Eigen/Core>
+#include <cassert>
 #include <stdexcept>
 
 #include "flightloop/integrator/integrator.h"
@@ -41,7 +42,7 @@ Integrator::StepStatus Rk4Integrator::Step(double t, double dt,
   if (f(t + dt, x_stage_, k4_) != RhsStatus::kOk) return StepStatus::kFailed;
 
   x = x + (k1_ + 2 * k2_ + 2 * k3_ + k4_) * dt / 6;
-  return Integrator::StepStatus::kOk;
+  return StepStatus::kOk;
 }
 
 }  // namespace flightloop
