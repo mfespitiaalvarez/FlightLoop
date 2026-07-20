@@ -70,35 +70,20 @@ int StateRegistry::size() const {
   return size_;
 }
 
-int StateRegistry::offset(StateBlockHandle handle) const {
+const StateBlockRecord& StateRegistry::record(StateBlockHandle handle) const {
   if (!finalized_) {
     throw std::logic_error(
-        "StateRegistry: Attempting to get offset before finalized registry");
+        "StateRegistry: record() called before finalized registry.");
   }
 
   if (handle.index_ < 0 || handle.index_ >= static_cast<int>(blocks_.size())) {
     throw std::invalid_argument(
-        "StateRegistry: Handle does not have valid offset. Did you "
-        "pass a default constructed handle? (index_ = -1)");
+        "StateRegistry: record() passed a handle that does not refer to a "
+        "registered block. Did you pass a default constructed handle? "
+        "(index_ = -1)");
   }
 
-  return blocks_[handle.index_].offset;
-}
-
-int StateRegistry::block_size(StateBlockHandle handle) const {
-  if (!finalized_) {
-    throw std::logic_error(
-        "StateRegistry: Attempting to check block size before finalized "
-        "registry");
-  }
-
-  if (handle.index_ < 0 || handle.index_ >= static_cast<int>(blocks_.size())) {
-    throw std::invalid_argument(
-        "StateRegistry: Handle does not have valid offset. Did you "
-        "pass a default constructed handle? (index_ = -1)");
-  }
-
-  return blocks_[handle.index_].descriptor.size;
+  return blocks_[handle.index_];
 }
 
 const std::vector<StateBlockRecord>& StateRegistry::blocks() const {

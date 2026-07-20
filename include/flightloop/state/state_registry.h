@@ -30,8 +30,12 @@ class StateRegistry {
 
   bool finalized() const;
   int size() const;
-  int offset(StateBlockHandle handle) const;
-  int block_size(StateBlockHandle handle) const;
+
+  // Handle-keyed access to a single block's schema and layout. Prefer this
+  // over blocks(), which is for walking every block in registration order.
+  // The reference stays valid for the life of the registry: layout is frozen
+  // at Finalize() and blocks_ never changes afterwards.
+  const StateBlockRecord& record(StateBlockHandle handle) const;
 
   const std::vector<StateBlockRecord>& blocks() const;
 
