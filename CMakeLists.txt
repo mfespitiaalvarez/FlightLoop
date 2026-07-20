@@ -8,13 +8,15 @@ FetchContent_Declare(
   GIT_TAG 5.0.0)
 FetchContent_MakeAvailable(eigen)
 
-add_library(flightloop
-    src/integrator/integrator.cc
-    src/integrator/rk4_integrator.cc)
+add_library(flightloop)
 target_compile_features(flightloop PUBLIC cxx_std_20)
 target_include_directories(flightloop PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
 target_link_libraries(flightloop PUBLIC Eigen3::Eigen)
+
+# Each src subdir appends its own sources via target_sources(flightloop ...).
+add_subdirectory(src/integrator)
+add_subdirectory(src/state)
 
 include(CTest)
 if(BUILD_TESTING)
