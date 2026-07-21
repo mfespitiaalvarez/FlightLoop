@@ -28,7 +28,9 @@ if(BUILD_TESTING)
 
   add_executable(flightloop_tests
       tests/unit/frames/rotation_test.cc
-      tests/unit/integrator/rk4_integrator_test.cc)
+      tests/unit/integrator/rk4_integrator_test.cc
+      tests/unit/state/state_registry_test.cc
+      tests/unit/state/state_block_view_test.cc)
   target_link_libraries(flightloop_tests PRIVATE flightloop GTest::gtest_main)
 
   include(GoogleTest)
